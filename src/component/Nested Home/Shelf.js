@@ -5,7 +5,7 @@
 import React from "react";
 import Book from "./Nested Shelf/Book";
 
-function Shelf({  shelf, books, onHandleChange }) {
+function Shelf({ shelf, books, onHandleChange }) {
   /* use bookshelves State to styled header */
   const header = `${shelf.charAt(0).toUpperCase()}${shelf
     .slice(1)
@@ -18,19 +18,20 @@ function Shelf({  shelf, books, onHandleChange }) {
       <div className="bookshelf-books">
         <ol className="books-grid">
           {/* use bookshelves State to filter books*/}
-          {books
-            .filter((el) => shelf === el.shelf)
-            .map((el) => (
-              <Book
-                key={el.id}
-                shelf = {shelf}
-                book={el}
-                bookTitle={el.title}
-                bookAuthors={el.authors[0]}
-                bookImage={el.imageLinks.thumbnail}
-                onHandleChange={onHandleChange}
-              />
-            ))}
+          {Array.isArray(books) &&
+            books
+              .filter((el) => shelf === el.shelf)
+              .map((el) => (
+                <Book
+                  key={el.id}
+                  shelf={shelf}
+                  book={el}
+                  bookTitle={el.title}
+                  bookAuthors={el.authors[0]}
+                  bookImage={el.imageLinks.thumbnail}
+                  onHandleChange={onHandleChange}
+                />
+              ))}
         </ol>
       </div>
     </div>

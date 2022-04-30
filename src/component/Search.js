@@ -6,11 +6,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Book from "./Nested Home/Nested Shelf/Book";
 
-function Search({ search, onHandleChange, onHandleSearch }) {
+function Search({
+  search,
+  onHandelDeleteSearch,
+  onHandleChange,
+  onHandleSearch,
+  onHandleSelectClicked,
+}) {
   return (
     <div className="search-books">
       <div className="search-books-bar">
-        <Link to={"/"} className="close-search">
+        <Link to={"/"} className="close-search" onClick={onHandelDeleteSearch}>
           Close
         </Link>
         <div className="search-books-input-wrapper">
@@ -31,10 +37,12 @@ function Search({ search, onHandleChange, onHandleSearch }) {
               <Book
                 key={el.id}
                 book={el}
+                bookShelf={el.shelf}
                 bookTitle={el.title ? el.title : ""}
                 bookAuthors={el.authors ? el.authors[0] : ""}
                 bookImage={el.imageLinks && el.imageLinks.thumbnail}
                 onHandleChange={onHandleChange}
+                onHandleSelectClicked={onHandleSelectClicked}
               />
             ))}
         </ol>

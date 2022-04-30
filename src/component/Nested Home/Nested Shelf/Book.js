@@ -5,12 +5,12 @@
 import React from "react";
 
 function Book({
-  shelf,
   bookTitle,
   bookAuthors,
   bookImage,
   book,
   onHandleChange,
+  onHandleSelectClicked,
 }) {
   return (
     <li>
@@ -24,23 +24,30 @@ function Book({
               backgroundImage: bookImage ? `url(${bookImage})` : "",
             }}></div>
           <div className="book-shelf-changer">
-            <select onChange={(e) => onHandleChange(book, e)} value="none">
+            <select
+              onChange={(e) => onHandleChange(book, e)}
+              value="none"
+              onClick={onHandleSelectClicked}>
               <option value="none" disabled>
-                {window.location.pathname === "/" && "Move to..."}
-                {window.location.pathname === "/search" && "Add to..."}
+                {book.shelf !== "none" && book.shelf !== undefined
+                  ? "Move to..."
+                  : "Add to..."}
               </option>
               <option value="currentlyReading">
-                {shelf === "currentlyReading"
+                {book.shelf === "currentlyReading"
                   ? "✓ Currently Reading"
                   : "Currently Reading"}
               </option>
               <option value="wantToRead">
-                {shelf === "wantToRead" ? "✓ Want to Read" : "Want to Read"}
+                {book.shelf === "wantToRead"
+                  ? "✓ Want to Read"
+                  : "Want to Read"}
               </option>
               <option value="read">
-                {shelf === "read" ? "✓ Read" : "Read"}
+                {book.shelf === "read" ? "✓ Read" : "Read"}
               </option>
-              {window.location.pathname === "/" && (
+              {/* {console.log(book.shelf)} */}
+              {book.shelf !== "none" && book.shelf !== undefined && (
                 <option value="none">None</option>
               )}
             </select>
@@ -53,4 +60,3 @@ function Book({
   );
 }
 export default Book;
-

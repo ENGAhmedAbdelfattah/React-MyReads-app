@@ -20,30 +20,36 @@ function App() {
   /* State */
   const [Books, setBooks] = useState([]);
   const [search, setSearch] = useState([]);
+
   /* useEffect */
   useEffect(() => {
     getBooks();
   }, []);
-  /* handle Functions */
-  console.log(Books);
 
+  /* handle Functions */
   const handleChange = (book, e) => {
-    console.log(Books);
     const fieldValue = e.currentTarget.value;
     updateBooks(book, fieldValue);
     getBooks();
+    setSearch(replace(search));
+    getBooks();
   };
-
-  console.log();
+  const handleSelectClicked = () => {
+    getBooks();
+    setSearch(replace(search));
+    getBooks();
+  };
   const handleSearch = (e) => {
-    let prepareValue = String(e.currentTarget.value.trim().split(" ").join(""));
+    let prepareValue = String(e.currentTarget.value);
     if (prepareValue) {
-      searchBooks(prepareValue, 30);
+      searchBooks(prepareValue, 20);
     } else {
       setSearch([]);
     }
   };
-
+  const handelDeleteSearch = () => {
+    setSearch([]);
+  };
   /* ABI Functions */
   const getBooks = async () => {
     const res = await BooksAPI.getAll();
@@ -55,8 +61,28 @@ function App() {
   };
 
   const searchBooks = async (query, maxResults) => {
+    setSearch([]);
     const resSearch = await BooksAPI.search(query, maxResults);
-    setSearch(resSearch);
+    /* setState */
+    setSearch(replace(resSearch));
+    getBooks();
+  };
+
+  /* if book in search is found on shelf replace it by data from Books state */
+  const replace = (resSearch) => {
+    let id = Books.map((el) => el.id);
+    let matchedResSearch = Array.isArray(resSearch)
+      ? resSearch.map((elResSearch) => {
+          if (id.includes(elResSearch.id)) {
+            return (elResSearch = Books.filter(
+              (el) => el.id === elResSearch.id
+            )[0]);
+          } else {
+            return elResSearch;
+          }
+        })
+      : [];
+    return matchedResSearch;
   };
 
   /*Render */
@@ -77,6 +103,8 @@ function App() {
             books={Books}
             onHandleChange={handleChange}
             onHandleSearch={handleSearch}
+            onHandelDeleteSearch={handelDeleteSearch}
+            onHandleSelectClicked={handleSelectClicked}
           />
         }
       />
