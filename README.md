@@ -8,7 +8,7 @@ This course is provided by Scholarship Egypt FWD
 
 ## 📝 Papar Information
 - Title:  `MY-READS`
-- Author:  `Ahmed`,`Mahmoud`,`Abdelfattah`
+- Author:  `Ahmed Mahmoud Abdelfattah`
 
 ## 💻 Install
 - The first thing  : I did was start with a fresh Create React App instance to use the lasted version of react
