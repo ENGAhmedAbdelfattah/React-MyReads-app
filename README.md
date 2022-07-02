@@ -9,7 +9,7 @@ This course is provided by Scholarship Egypt FWD
 ## 📝 Papar Information
 - Title:  `MY-READS`
 - Author:  `Ahmed Mahmoud Abdelfattah`
-- My reads app is published at :  bit.ly/3P19M1A
+- My reads app is published at :  [bit.ly/3P19M1A](https://bit.ly/3P19M1A)
 
 ## 💻 Install
 - The first thing  : I did was start with a fresh Create React App instance to use the lasted version of react
